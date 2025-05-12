@@ -11,7 +11,6 @@ export function Home() {
             <CardUserInfo />
             <div className='w-full flex justify-between flex-wrap'>
                 <CardRepo />
-                <CardRepo />
             </div>
         </div>
     )

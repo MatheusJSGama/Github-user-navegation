@@ -13,6 +13,11 @@
     --text-S: 0.875rem;
     --text-link: 0.75rem;
 
+    --breakpoint-tablet: 48rem;
+    --breakpoint-xsm: 44.125rem;
+    --breakpoint-xxsm: 30rem;
+    --breakpoint-xxxsm: 24rem;
+
     --color-blue: #3294F8;
     --color-base-title: #E7EDF4;
     --color-base-subtitle: #C4D4E3;
