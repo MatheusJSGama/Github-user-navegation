@@ -1,50 +1,52 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
+  --default-font-family: 'nunito', sans-serif;
 
-    --default-font-family: 'nunito', sans-serif;
+  --text-title-L: 1.5rem;
+  --leading-title-L: 130%;
+  --text-title-M: 1.25rem;
+  --text-title-S: 1.125rem;
 
-    --text-title-L: 1.5rem;
-    --leading-title-L: 130%;
-    --text-title-M: 1.25rem;
-    --text-title-S: 1.125rem;
+  --text-M: 1rem;
+  --text-S: 0.875rem;
+  --text-link: 0.75rem;
 
-    --text-M: 1rem;
-    --text-S: 0.875rem;
-    --text-link: 0.75rem;
+  --breakpoint-tablet: 48rem;
+  --breakpoint-xsm: 44.125rem;
+  --breakpoint-xxsm: 30rem;
+  --breakpoint-xxxsm: 27rem;
 
-    --breakpoint-tablet: 48rem;
-    --breakpoint-xsm: 44.125rem;
-    --breakpoint-xxsm: 30rem;
-    --breakpoint-xxxsm: 24rem;
-
-    --color-blue: #3294F8;
-    --color-base-title: #E7EDF4;
-    --color-base-subtitle: #C4D4E3;
-    --color-base-text: #AFC2D4;
-    --color-base-span: #7B96B2;
-    --color-base-label: #3A536B;
-    --color-base-border: #1C2F41;
-    --color-base-post: #112131;
-    --color-base-profile: #0B1B2B;
-    --color-base-background: #071422;
-    --color-base-input: #040F1A;
+  --color-blue: #3294f8;
+  --color-base-title: #e7edf4;
+  --color-base-subtitle: #c4d4e3;
+  --color-base-text: #afc2d4;
+  --color-base-span: #7b96b2;
+  --color-base-label: #3a536b;
+  --color-base-border: #1c2f41;
+  --color-base-post: #112131;
+  --color-base-profile: #0b1b2b;
+  --color-base-background: #071422;
+  --color-base-input: #040f1a;
 }
 
 @layer base {
-    * {
-        @apply m-0 p-0 box-border;
-    }
+  * {
+    @apply m-0 box-border p-0;
+  }
 
-    :focus {
-        @apply outline-none ring-2 ring-blue;
-    }
+  :focus {
+    @apply ring-2 ring-blue outline-none;
+  }
 
-    body {
-        @apply bg-base-background text-base-text antialiased;
-    }
+  body {
+    @apply bg-base-background text-base-text antialiased;
+  }
 
-    body, input, textarea, button {
-        @apply text-base font-normal leading-[160%];
-    }
+  body,
+  input,
+  textarea,
+  button {
+    @apply text-base leading-[160%] font-normal;
+  }
 }

@@ -1,53 +1,91 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faGithub } from '@fortawesome/free-brands-svg-icons'
-import { faChevronLeft, faArrowUpRightFromSquare, faCalendarDay, faComment } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import {
+  faChevronLeft,
+  faArrowUpRightFromSquare,
+  faCalendarDay,
+  faComment,
+} from '@fortawesome/free-solid-svg-icons';
+import { useNavigate } from 'react-router-dom';
+import { useContext } from 'react';
+import ReactMarkdown from 'react-markdown';
+import { UserContext } from '../../context/userContext';
+import { formatDistanceToNowStrict } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 export function Issue() {
-    return (
-        <main className='w-full max-w-[55rem] p-4'>
-            <div className='w-full bg-base-profile p-8 rounded-md flex flex-col gap-5 -mt-24'>
-                <div className='text-blue text-link uppercase flex justify-between'>
-                    <a href="" className='flex gap-2 items-center'>
-                        <FontAwesomeIcon icon={faChevronLeft} />
-                        <span>Voltar</span>
-                    </a>
-                    <a href="" className='flex gap-2 items-center'>
-                        <span>Ver no github</span>
-                        <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
-                    </a>
-                </div>
-                <div className='flex flex-col gap-2'>
-                    <span className='text-base-title text-title-L'>JavaScript data types and data structures</span>
-                    <div className='flex gap-8'>
-                        <div className='flex items-center gap-1'>
-                            <FontAwesomeIcon icon={faGithub} className='text-base-label' />
-                            <span className='text-base-span'>cameronwll</span>
-                        </div>
+  const { userInfos } = useContext(UserContext);
+  const issueData = userInfos.currentIssue;
+  const navigate = useNavigate();
 
-                        <div className='flex items-center gap-1'>
-                            <FontAwesomeIcon icon={faCalendarDay} className='text-base-label' />
-                            <span className='text-base-span'>Há 1 dia</span>
-                        </div>
+  return (
+    <main className='w-full max-w-[55rem] p-4'>
+      {issueData && (
+        <>
+          <div className='-mt-24 flex w-full flex-col gap-5 rounded-md bg-base-profile p-8'>
+            <div className='flex justify-between text-link text-blue uppercase'>
+              <button
+                onClick={() => navigate(-1)}
+                className='flex cursor-pointer items-center gap-2'
+              >
+                <FontAwesomeIcon icon={faChevronLeft} />
+                <span>Voltar</span>
+              </button>
+              <a
+                href={issueData?.html_url}
+                target='_blank'
+                className='flex items-center gap-2'
+              >
+                <span>Ver no github</span>
+                <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
+              </a>
+            </div>
+            <div className='flex flex-col gap-2'>
+              <span className='text-title-L text-base-title'>
+                {issueData?.title}
+              </span>
+              <div className='flex flex-col items-center gap-4 xxxsm:flex-row'>
+                <div className='flex items-center gap-1'>
+                  <FontAwesomeIcon
+                    icon={faGithub}
+                    className='text-base-label'
+                  />
+                  <span className='text-base-span'>
+                    {issueData?.user.login}
+                  </span>
+                </div>
 
-                        <div className='flex items-center gap-1'>
-                            <FontAwesomeIcon icon={faComment} className='text-base-label' />
-                            <span className='text-base-span'>5 comentários</span>
-                        </div>
-                    </div>
+                <div className='flex items-center gap-1'>
+                  <FontAwesomeIcon
+                    icon={faCalendarDay}
+                    className='text-base-label'
+                  />
+                  <span className='text-base-span'>
+                    {issueData?.created_at
+                      ? formatDistanceToNowStrict(issueData.created_at, {
+                          locale: ptBR,
+                        })
+                      : 'Data desconhecida'}
+                  </span>
                 </div>
-            </div>
-            <div className='p-8'>
-                <div>
-                    <p className='text-base-text'>
-                        Programming languages all have built-in data structures, but these often differ from one language to another. This article attempts to list the built-in data structures available in JavaScript and what properties they have. These can be used to build other data structures. Wherever possible, comparisons with other languages are drawn.
-                        <br />
-                        <br />
-                        Dynamic typing
-                        <br />
-                        JavaScript is a loosely typed and dynamic language. Variables in JavaScript are not directly associated with any particular value type, and any variable can be assigned (and re-assigned) values of all types:
-                    </p>
+
+                <div className='flex items-center gap-1'>
+                  <FontAwesomeIcon
+                    icon={faComment}
+                    className='text-base-label'
+                  />
+                  <span className='text-base-span'>
+                    {issueData?.comments} comentários
+                  </span>
                 </div>
+              </div>
             </div>
-        </main>
-    )
+          </div>
+          <div className='mt-4 text-M text-base-text xxxsm:mt-0 xxxsm:px-8 xxxsm:py-10'>
+            <ReactMarkdown>{issueData?.body}</ReactMarkdown>
+          </div>
+        </>
+      )}
+    </main>
+  );
 }
